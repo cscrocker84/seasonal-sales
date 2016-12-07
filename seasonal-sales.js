@@ -1,29 +1,32 @@
-//Your job is to build a web page that lists all of the products, the name of the department
-//it's in, and the price. Additionally, put a <select> element at the top of the page that
-//contains all possible values of the season_discount key in the categories file. As soon as
-//ou select one of the seasons, all prices on the page should immediately be discounted by
-//the corresponding percentage.
 
-console.log("hello");
+//declare global variables
 
-var requestProduct = new XMLHttpRequest()
+// var for DOM div that will be filled with product information
+var divItems = document.getElementById("listItems");
+// var for future concat string that will hold information
+var pageItems = "";
+// var to store parsed product information
+var products;
+// var to store parsed sales information
+var salesData;
 
-function productInfo(e) {
-    var product = JSON.parse(e.target.responseText);
-    console.log("product", product);
+//function that will parse product info and department to the page
+var productsCat = function () {
+	pageItems = "";
+	for (var i = 0; < products.length; i++) {
+		//assigns department
+		if (products[i].category_id === 1) {
+			products[i].category = "Apparel";
+	}	else if (products[i].category_id === 2) {
+			products[i].category = "Furniture";
+	}	else if ((products[i].category_id === 3) {
+			products[i].category = "Household";
+	}
+
+//assign product name, department, and price to the div
+	pageItems += `<h3>${products[i].name}</h3>
+					<p>In the ${products[i].category} department</p>
+					<p class="${products[i].category_id}">Price is: <span class="price">${products[i].price}</span></p>`;
+	//post
+	divItems.innerHTML = pageItems;
 }
-
-requestProduct.addEventListener("load", "requestProduct")
-requestProduct.open("GET", "products.json")
-requestProduct.send()
-
-var requestCategory = new XMLHttpRequest()
-
-function requestCategory(e) {
-    var product = JSON.parse(e.target.responseText);
-    console.log("product", product);
-}
-
-requestCategory.addEventListener("load", "requestProduct")
-requestCategory.open("GET", "categories.json")
-requestCategory.send()
